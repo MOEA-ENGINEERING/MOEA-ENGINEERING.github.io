@@ -13,16 +13,15 @@ import SIGGEN;
 ###############################################################################
 #################### SIGNAL  GENERATOR / DATA READ ############################
 ###############################################################################
-# sig = SIGGEN.SIGGEN(4, 250000, [1,2,1.5],[400,3200,6400],[0,m.pi/2,m.pi/5]);
 sig = SIGGEN.SIGGEN(4, 1000, [3,0.3],[0.5,4],[0,0]); # Initialize Signal
-sig.compute_Signal();
-sig.add_Gaussian_Noise(0, 0.1);
-sig.plot_Signal("Signal");
+sig.compute_Signal(); # Compute Signal
+sig.add_Gaussian_Noise(0, 0.1); # Add Noise
+sig.plot_Signal("Signal"); # Show signal
 
-trig = SIGGEN.SIGGEN(4, 1000, [3],[1],[0]); # Initialize Signal
-trig.compute_Square_Signal();
-trig.add_White_Noise(0, 0.1)
-trig.plot_Signal("Trigger_Signal");
+trig = SIGGEN.SIGGEN(4, 1000, [2],[2],[0]); # Initialize Trigger Signal
+trig.compute_Square_Signal(); # Compute Trigger Signal
+trig.add_White_Noise(0, 0.1); # Add Noise
+trig.plot_Signal("Trigger_Signal"); # Show Trigger Signal
 
 
 ###############################################################################
@@ -38,6 +37,18 @@ trig.plot_Signal("Trigger_Signal");
 ###############################################################################
 ############################# DATA PROCESSING #################################
 ###############################################################################
+
+
+
+
+
+
+
+###############################################################################
+############################### DATA OUTPUT ###################################
+###############################################################################
+
+
 
 
 print("Hello World!")

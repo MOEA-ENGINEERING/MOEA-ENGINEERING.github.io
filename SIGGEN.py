@@ -12,62 +12,62 @@ from scipy import signal as ss;
 # SIGNAl GENERATOR
 class SIGGEN:
     # Signal data
-    y = []; # signal series
-    t = []; # time series
-    A = []; # Amplitudes of signal components
-    phi = []; # signal phase angles in rad
-    T = None; # Total signal length in seconds
-    Fs = None; # Sample Rate in Seconds
-    dt = None; # timestep dt
-    Fq = None; # Signal Comonent Frequencies in Hz
-    avgNoise = 0; # Mean Gaussian Noise
-    stdNoise = 0; # Standard Deviation Noise
+    __y = []; # signal series
+    __t = []; # time series
+    __A = []; # Amplitudes of signal components
+    __phi = []; # signal phase angles in rad
+    __T = None; # Total signal length in seconds
+    __Fs = None; # Sample Rate in Seconds
+    __dt = None; # timestep dt
+    __Fq = None; # Signal Comonent Frequencies in Hz
+    __avgNoise = 0; # Mean Gaussian Noise
+    __stdNoise = 0; # Standard Deviation Noise
 
    
     def __init__(self, T, FS, A, Freq, phi):
-        self.T = T; # Total Time in Seconds
-        self.Fs = FS; # Sample Rate in Sampels/s
-        self.dt = 1/self.Fs; # timestep dt in s
-        self.t = np.linspace(0, self.T,num=(self.Fs*self.T)); # time series
-        self.A = A; # signal components Amplitudes
-        self.Fq = Freq; # signal components Frequencies in Hz
-        self.phi = phi; # signal components phase shifts
-        self.y = np.zeros(self.Fs*self.T); 
+        self.__T = T; # Total Time in Seconds
+        self.__Fs = FS; # Sample Rate in Sampels/s
+        self.__dt = 1/self.__Fs; # timestep dt in s
+        self.__t = np.linspace(0, self.__T,num=(self.__Fs*self.__T)); # time series
+        self.__A = A; # signal components Amplitudes
+        self.__Fq = Freq; # signal components Frequencies in Hz
+        self.__phi = phi; # signal components phase shifts
+        self.__y = np.zeros(self.__Fs*self.__T); 
         
     def compute_Signal(self):
-        if len(self.A) == len(self.phi) & len(self.A) == len(self.Fq):
-            for i in range(len(self.A)):
-                for j in range(len(self.t)):
-                    self.y[j] = self.y[j] + self.A[i]*m.cos(self.t[j]*(2*m.pi)*self.Fq[i]+self.phi[i]);
+        if len(self.__A) == len(self.__phi) & len(self.__A) == len(self.__Fq):
+            for i in range(len(self.__A)):
+                for j in range(len(self.__t)):
+                    self.__y[j] = self.__y[j] + self.__A[i]*m.cos(self.__t[j]*(2*m.pi)*self.__Fq[i]+self.__phi[i]);
         
     def compute_Square_Signal(self):
-        if len(self.A) == len(self.phi) & len(self.A) == len(self.Fq):
-            for i in range(len(self.A)):
-                self.y = self.y + self.A[i]*ss.square(2*m.pi*self.Fq[i]*self.t+self.phi[i]);
+        if len(self.__A) == len(self.__phi) & len(self.__A) == len(self.__Fq):
+            for i in range(len(self.__A)):
+                self.__y = self.__y + self.__A[i]*ss.square(2*m.pi*self.__Fq[i]*self.__t+self.__phi[i]);
             
     def compute_Sawtooth_Signal(self):
-        if len(self.A) == len(self.phi) & len(self.A) == len(self.Fq):
-            for i in range(len(self.A)):
-                self.y = self.y + self.A[i]*ss.sawtooth(2*m.pi*self.Fq[i]*self.t+self.phi[i]);
+        if len(self.__A) == len(self.__phi) & len(self.__A) == len(self.__Fq):
+            for i in range(len(self.__A)):
+                self.__y = self.__y + self.__A[i]*ss.sawtooth(2*m.pi*self.__Fq[i]*self.__t+self.__phi[i]);
     
     def add_Gaussian_Noise(self, mean, std):
-        self.avgNoise = mean;
-        self.stdNoise = std;
-        self.y = self.y + np.random.normal(self.avgNoise, self.stdNoise, len(self.t));
+        self.__avgNoise = mean;
+        self.__stdNoise = std;
+        self.__y = self.__y + np.random.normal(self.__avgNoise, self.__stdNoise, len(self.__t));
         
     def add_White_Noise(self, mean, std):
-        self.avgNoise = mean;
-        self.stdNoise = std;
-        self.y = self.y + np.random.uniform(self.avgNoise, self.stdNoise, len(self.t));
+        self.__avgNoise = mean;
+        self.__stdNoise = std;
+        self.__y = self.__y + np.random.uniform(self.__avgNoise, self.__stdNoise, len(self.__t));
         
     def add_Brownian_Noise(self, mean, std):
-        self.avgNoise = mean;
-        self.stdNoise = std;
-        self.y = self.y + np.cumsum(np.random.normal(self.avgNoise, self.stdNoise, len(self.t)));
+        self.__avgNoise = mean;
+        self.__stdNoise = std;
+        self.__y = self.__y + np.cumsum(np.random.normal(self.__avgNoise, self.__stdNoise, len(self.__t)));
         
     def  plot_Signal(self,label):
         plt.figure
-        plt.plot(self.t, self.y)
+        plt.plot(self.__t, self.__y)
         plt.xlabel("Time [s]")
         plt.ylabel("Signal [-]")
         plt.show
@@ -75,4 +75,4 @@ class SIGGEN:
     
     def get_Signal(self):
         # Return time and signal series
-        return [self.t, self.y] 
+        return [self.__t, self.__y] 
