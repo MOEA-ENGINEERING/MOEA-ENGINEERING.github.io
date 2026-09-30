@@ -6,7 +6,9 @@ Created on Mon Sep 28 20:49:25 2026
 @author: apollo
 """
 
-class TESTRIG:
+class TESTRIG(COMPOSITEENTITY[MEASPLANE]):
+    __test__ = False  # prevent pytest from collecting this class
+    child_type = MeasurementPlane
     __nPlanes = None; # Number of measurement planes
     __nRotors = None; # Number of rotors
     
