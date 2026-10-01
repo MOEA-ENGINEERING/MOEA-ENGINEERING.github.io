@@ -52,33 +52,33 @@ brg_sec = brg.add(MeasurementSector("B1_S1"))
 prox = brg_sec.add(DisplacementPoint("DX_B1", direction="x", position=Position(0.4, 0.025, 45),
                                      sensor=ProximityProbe("PX1")))
 
-# ---------------------------------------------------------------- 2. campaign & data import
-# campaign = TestCampaign("Demo campaign", rig, va_number="VA-0000", test_object="Demo compressor")
-# run = campaign.add(TestRun("Run01", operator="Demo"))
+---------------------------------------------------------------- 2. campaign & data import
+campaign = TestCampaign("Demo campaign", rig, va_number="VA-0000", test_object="Demo compressor")
+run = campaign.add(TestRun("Run01", operator="Demo"))
 
-# rows = []
-# for n in (20000, 25000, 30000):
-#     for j, throttle in enumerate((0.8, 1.0, 1.2)):
-#         op = f"N{n//1000}_P{j+1}"
-#         pr = 1 + 2.2 * (n / 30000) ** 2 * (1.1 - 0.1 * throttle)
-#         tr = pr ** (0.2857 / (0.80 - 0.04 * (throttle - 1) ** 2 * 10))
-#         row = {"op_id": op, "N_RPM": n}
-#         for pt in rig.points():
-#             if pt.plane is None or pt.plane.id not in ("E1", "E2"):
-#                 continue
-#             th = np.deg2rad(pt.position.theta)
-#             dist = 1 + 0.01 * np.cos(th)  # 1st harmonic distortion
-#             if isinstance(pt, TotalPressurePoint):
-#                 row[pt.channel] = (1.0 if pt.plane.id == "E1" else pr) * 101325 * dist
-#             elif isinstance(pt, TotalTemperaturePoint):
-#                 row[pt.channel] = (293.15 if pt.plane.id == "E1" else 293.15 * tr) + rng.normal(0, 0.2)
-#             else:
-#                 row[pt.channel] = (0.95 if pt.plane.id == "E1" else 0.9 * pr) * 101325
-#         rows.append(row)
-# csv = OUT / "steady_data.csv"
-# pd.DataFrame(rows).to_csv(csv, index=False)
-# reader = SteadyStateCsvReader(rig)
-# reader.read(csv, run)
+rows = []
+for n in (20000, 25000, 30000):
+    for j, throttle in enumerate((0.8, 1.0, 1.2)):
+        op = f"N{n//1000}_P{j+1}"
+        pr = 1 + 2.2 * (n / 30000) ** 2 * (1.1 - 0.1 * throttle)
+        tr = pr ** (0.2857 / (0.80 - 0.04 * (throttle - 1) ** 2 * 10))
+        row = {"op_id": op, "N_RPM": n}
+        for pt in rig.points():
+            if pt.plane is None or pt.plane.id not in ("E1", "E2"):
+                continue
+            th = np.deg2rad(pt.position.theta)
+            dist = 1 + 0.01 * np.cos(th)  # 1st harmonic distortion
+            if isinstance(pt, TotalPressurePoint):
+                row[pt.channel] = (1.0 if pt.plane.id == "E1" else pr) * 101325 * dist
+            elif isinstance(pt, TotalTemperaturePoint):
+                row[pt.channel] = (293.15 if pt.plane.id == "E1" else 293.15 * tr) + rng.normal(0, 0.2)
+            else:
+                row[pt.channel] = (0.95 if pt.plane.id == "E1" else 0.9 * pr) * 101325
+        rows.append(row)
+csv = OUT / "steady_data.csv"
+pd.DataFrame(rows).to_csv(csv, index=False)
+reader = SteadyStateCsvReader(rig)
+reader.read(csv, run)
 
 # # time-resolved shaft displacement for one OP (1x + 2x + noise)
 # op_dyn = "N30_P2"
