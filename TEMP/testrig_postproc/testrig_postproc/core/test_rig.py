@@ -53,8 +53,12 @@ class TestRig(CompositeEntity[MeasurementPlane]):
     @property
     def planes(self) -> List[MeasurementPlane]:
         return sorted(self.children, key=lambda p: p.axial_position)
+    
+    # @property
+    # def get_plane(self, role) -> MeasurementPlane:
+    #     return self.plane_by_role(PlaneRole.role)
 
-    def plane_by_role(self, role: PlaneRole) -> MeasurementPlane:
+    def get_plane_by_role(self, role: PlaneRole) -> MeasurementPlane:
         hits = [p for p in self if p.role is role]
         if len(hits) != 1:
             raise LookupError(f"Expected exactly one plane with role {role.name}, found {len(hits)}")
@@ -88,25 +92,24 @@ class TestRig(CompositeEntity[MeasurementPlane]):
         return pd.DataFrame(rows)[cols]
 
 
-class CompressorTestRig(TestRig):
-    @property
-    def compressor_inlet(self) -> MeasurementPlane:
-        return self.plane_by_role(PlaneRole.COMPRESSOR_INLET)
+# class CompressorTestRig(TestRig):
+#     @property
+#     def compressor_inlet(self) -> MeasurementPlane:
+#         return self.get_plane_by_role(PlaneRole.COMPRESSOR_INLET)
 
-    @property
-    def compressor_outlet(self) -> MeasurementPlane:
-        return self.plane_by_role(PlaneRole.COMPRESSOR_OUTLET)
+#     @property
+#     def compressor_outlet(self) -> MeasurementPlane:
+#         return self.get_plane_by_role(PlaneRole.COMPRESSOR_OUTLET)
 
 
 # class TurbineTestRig(TestRig):
 #     @property
 #     def turbine_inlet(self) -> MeasurementPlane:
-#         return self.plane_by_role(PlaneRole.TURBINE_INLET)
+#         return self.get_plane_by_role(PlaneRole.TURBINE_INLET)
 
 #     @property
 #     def turbine_outlet(self) -> MeasurementPlane:
-#         return self.plane_by_role(PlaneRole.TURBINE_OUTLET)
+#         return self.get_plane_by_role(PlaneRole.TURBINE_OUTLET)
 
 
-# class TurbochargerTestRig(CompressorTestRig, TurbineTestRig):
-#     """Rig with compressor and turbine stage on a common rotor."""
+

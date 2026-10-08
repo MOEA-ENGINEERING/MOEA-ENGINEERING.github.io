@@ -72,6 +72,7 @@ class SIGGEN:
         plt.ylabel("Signal [-]")
         plt.show
         plt.savefig("./OUTPUT/"+label)
+        plt.close()
     
     def get_Signal(self):
         # Return time and signal series

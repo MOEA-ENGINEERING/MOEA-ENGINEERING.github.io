@@ -14,6 +14,6 @@ from .measurement_point import (POINT_TYPES, AccelerationPoint, DisplacementPoin
 from .averaging import ArithmeticAverager, AreaWeightedAverager, Averager, CircumferentialAverager
 from .sector import MeasurementSector
 from .plane import MeasurementPlane, PlaneRole, RotatingMeasurementPlane, StationaryMeasurementPlane
-from .rotor import CompressorWheel, Disc, Rotor, RotorComponent, Shaft, TurbineWheel
-from .test_rig import CompressorTestRig, TestRig, TurbineTestRig, TurbochargerTestRig
+from .rotor import Disc, Rotor, RotorComponent, Shaft # CompressorWheel, TurbineWheel
+from .test_rig import TestRig #TurbochargerTestRig, CompressorTestRig, TurbineTestRig
 from .campaign import OperatingPoint, TestCampaign, TestRun

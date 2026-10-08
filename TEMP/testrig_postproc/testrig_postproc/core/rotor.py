@@ -49,9 +49,10 @@ class Shaft(RotorComponent):
 
 
 class Disc(RotorComponent, ABC):
-    def __init__(self, name: str, outer_radius: float = 0.0, blade_count: int = 0, **kwargs) -> None:
+    def __init__(self, name: str, inner_radius: float = 0.0, outer_radius: float = 0.0, blade_count: int = 0, **kwargs) -> None:
         super().__init__(name, **kwargs)
         self.outer_radius = outer_radius
+        self.inner_radius = inner_radius
         self.blade_count = blade_count
 
 

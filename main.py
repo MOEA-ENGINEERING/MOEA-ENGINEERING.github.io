@@ -13,10 +13,10 @@ import SIGGEN;
 ###############################################################################
 #################### SIGNAL  GENERATOR / DATA READ ############################
 ###############################################################################
-sig = SIGGEN.SIGGEN(4, 1000, [3,0.3],[0.5,4],[0,0]); # Initialize Signal
+sig = SIGGEN.SIGGEN(4, 1000, [5,0.5],[0.5,4],[0,m.pi/8]); # Initialize Signal
 sig.compute_Signal(); # Compute Signal
-sig.add_Gaussian_Noise(0, 0.1); # Add Noise
-sig.plot_Signal("Signal"); # Show signal
+# sig.add_Gaussian_Noise(0, 0.1); # Add Noise
+sig.plot_Signal("Signal_Test"); # Show signal
 
 trig = SIGGEN.SIGGEN(4, 1000, [2],[2],[0]); # Initialize Trigger Signal
 trig.compute_Square_Signal(); # Compute Trigger Signal
